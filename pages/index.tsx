@@ -1,33 +1,19 @@
 import { NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import cookies from "browser-cookies";
 const HomePage: NextPage = () => {
-  const { data: session } = useSession();
+  const [data, setData] = useState<string[]>([]);
+  useEffect(() => {
+    const loc = typeof window !== "undefined" ? cookies.get("loc") ?? "" : "";
+    const _data = loc.split(",");
+    setData(_data);
+  }, []);
+
+  const [ip, country] = data;
   return (
     <div className="container">
-      <div className="grid place-content-center min-h-screen">
-        <div className="flex flex-col items-center gap-4">
-          <h1 className="text-4xl my-8">Welcome to Next IP Tutorial</h1>
-
-          <p>Your ip: {session?.ip}</p>
-          <p>Country: {session?.country}</p>
-          {!!session?.user ? (
-            <>
-              <h2>You are logged in as {session?.user?.email} </h2>
-
-              <button className="btn" onClick={() => signOut()}>
-                Sign Out
-              </button>
-            </>
-          ) : (
-            <Link className="btn btn-outline" href="/signin">
-              Sign In
-            </Link>
-          )}
-        </div>
-      </div>
+      <p>Your ip: {ip}</p>
+      <p>Country: {country}</p>
     </div>
   );
 };

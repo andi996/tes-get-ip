@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "browser-cookies": "^1.2.0",
     "daisyui": "^2.42.1",
     "next": "13.0.5",
     "next-auth": "^4.17.0",
