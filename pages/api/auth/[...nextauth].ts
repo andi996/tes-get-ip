@@ -12,6 +12,8 @@ export default async function hanlder(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const ip = (req.headers["x-real-ip"] as string) ?? "";
+  const country = (req.headers["x-vercel-ip-country"] as string) ?? "";
   return await NextAuth(req, res, {
     providers: [
       //TODO: Create signIn mutation
@@ -54,6 +56,8 @@ export default async function hanlder(
         console.log("session", session);
         if (token && session.user) {
           session.user.role = token.role;
+          session.country = country;
+          session.ip = ip;
         }
         return session;
       },
