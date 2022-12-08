@@ -47,19 +47,9 @@ export default async function hanlder(
       signIn: "/signin",
     },
     callbacks: {
-      async jwt({ token, user }) {
-        if (user) {
-          token.role = user.role;
-        }
-        return token;
-      },
-      session({ session, token }) {
-        console.log("session", session);
-        if (token && session.user) {
-          session.user.role = token.role;
-          session.country = country;
-          session.ip = ip;
-        }
+      session({ session }) {
+        session.country = country;
+        session.ip = ip;
         return session;
       },
     },
