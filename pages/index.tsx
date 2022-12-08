@@ -9,10 +9,8 @@ const HomePage: NextPage = () => {
     <div className="container">
       <div className="grid place-content-center min-h-screen">
         <div className="flex flex-col items-center gap-4">
-          <h1 className="text-4xl my-8">Welcome to NextJS DaisyUI Starter</h1>
-          <Link className="btn " href="/admin">
-            Go to Admin
-          </Link>
+          <h1 className="text-4xl my-8">Welcome to Next IP Tutorial</h1>
+
           <p>Your ip: {session?.ip}</p>
           <p>Country: {session?.country}</p>
           {!!session?.user ? (
