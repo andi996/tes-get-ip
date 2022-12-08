@@ -1,15 +1,9 @@
 import { NextPage } from "next";
-import React, { useEffect, useState } from "react";
-import cookies from "browser-cookies";
-const HomePage: NextPage = () => {
-  const [data, setData] = useState<string[]>([]);
-  useEffect(() => {
-    const loc = typeof window !== "undefined" ? cookies.get("loc") ?? "" : "";
-    const _data = loc.split(",");
-    setData(_data);
-  }, []);
+import React from "react";
+import { useGeoLocation } from "utils/useGeoLocation";
 
-  const [ip, country] = data;
+const HomePage: NextPage = () => {
+  const { ip, country } = useGeoLocation();
   return (
     <div className="container">
       <p>Your ip: {ip}</p>
