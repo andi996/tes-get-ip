@@ -12,8 +12,15 @@ const SSRPage: NextPage<Props> = ({ ip }) => {
 export default SSRPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const ip =
-    req.headers["x-real-ip"] ?? req.headers["x-forwarded-for"] ?? "Unknown";
+  let ip = req.headers["x-real-ip"];
+  if (!ip) {
+    const forwardedFor = req.headers["x-forwarded-for"];
+    if (Array.isArray(forwardedFor)) {
+      ip = forwardedFor.at(0);
+    } else {
+      ip = forwardedFor?.split(",").at(0) ?? "Unknown";
+    }
+  }
 
   return {
     props: {
