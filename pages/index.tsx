@@ -1,13 +1,12 @@
 import { NextPage } from "next";
 import React from "react";
-import { useGeoLocation } from "utils/useGeoLocation";
+import { useUserIp } from "utils/useUserIp";
 
 const HomePage: NextPage = () => {
-  const { ip, country } = useGeoLocation();
+  const ip = useUserIp();
   return (
     <div className="container">
       <p>Your ip: {ip}</p>
-      <p>Country: {country}</p>
     </div>
   );
 };
